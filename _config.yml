@@ -24,8 +24,9 @@ url: "http://prsharma.me" # the base hostname & protocol for your site, e.g. htt
 twitter_username: phraniiac
 github_username:  phraniiac
 excerpt_separator: <!--more-->
-environment: development
+environment: production
 author: pranav
+google_analytics: true
 
 # disqus
 disqus.shortname: http://prsharma.me

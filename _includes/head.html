@@ -26,7 +26,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-  {% if jekyll.environment == 'production' and site.google_analytics %}
+
+    <meta property="og:url"                content="{{page.url}}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{page.title | escape}}" />
+    <meta property="og:description"        content="How much does culture influence creative thinking?" />
+    <meta property="og:image"              content="" />
+
+  {% if site.environment == 'production' and site.google_analytics %}
   {% include google-analytics.html %}
   {% endif %}
 </head>
