@@ -5,18 +5,14 @@
 layout: default
 ---
 
-<div id="header_website" style="font-size: 100%; text-align: center; margin-top: 15px;">
+<div id="header_website" style="font-size: 100%; text-align: center; margin-top: 15px;" class="col-xl-12">
 		 $ ``It's \hspace{2mm} all \hspace{2mm}  about \hspace{2mm}  the \hspace{2mm}  mathematics \hspace{2mm} behind." $
-	</div>
+</div>
 	<div class="row" style="margin-top:20px;">
 		<div class="col-lg-3 col-xl-3">
 			
 			<div class="text-left">
-				{% for image in site.static_files %}
-  					{% if image.path contains 'assets/images/main_img.jpg' %}
-  						<img src="{{ image.path }}" class="rounded" alt="..." width="200" height="200">
-  					{% endif %}
-				{% endfor %}
+				<img src="{{ site.baseurl }}{% link /assets/images/main_img.jpg %}" class="rounded" alt="..." width="200" height="200">
 			</div>
 		</div>
 		<div class="col-lg-6 col-xl-6">
@@ -61,8 +57,8 @@ layout: default
 			<ol>
 				<li><a href="https://allura.apache.org/">Apache Allura (Open Source)</a></li>
 				<li><a href="/backend/coursearcher">Coursearcher</a></li>
-				<li><a href="/backend/dedup.html">Deduplicating File System (A big One :D)</a></li>
-				<li><a href="/backend/fast_grep.html">Fast_Grep - Sliding window with KMP Algo</a></li>
+				<li><a href="/backend/dedup">Deduplicating File System (A big One :D)</a></li>
+				<li><a href="/backend/fast_grep">Fast_Grep - Sliding window with KMP Algo</a></li>
 				<a href="/backend/">check out more..</a>
 			</ol>
 			<h4>Machine Learning</h4>

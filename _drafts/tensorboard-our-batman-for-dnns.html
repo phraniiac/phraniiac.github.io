@@ -1,0 +1,71 @@
+---
+layout: post
+title: TensorBoard - Our Batman for DNNs
+author: pranav
+permalink: /machine_learning/tensorboard/
+categories: machine_learning
+support_data: {
+      links: { "https://www.youtube.com/watch?v=eBbEDRsCmv4": "Youtube Video", 
+                "https://www.tensorflow.org/get_started/graph_viz": "TensorFlow Graph Visuals"},
+      tags: {"tensorflow,", "tensorboard"},
+      categories: {"machine_learning"},
+      }
+---
+
+So, the first tensorflow dev summit was over, and the biggest news was Version 1.0, with all these new features. One of them which caught
+my eye was TensorBoard. Well the speaker summarized it best as - 
+<br>
+<figure>
+    <img style="margin: auto; display: block" src="{{ site.baseurl }}{% link /assets/images/tensorboard/batman.png %}">
+    <figcaption>If neural networks are Black box, then Tensorboard is Flashlight.</figcaption>
+</figure>
+
+
+<type2>Overview</type2><br>
+In this tutorial I will present some things that I can make tensorboard do ;). If you know about tensorboard, and are here to code, skip this
+section.So, lets talk more about tensorboard. Tensorboard is a tool that can help us visualize summaries of variables, the graph, and 
+embeddings (t-SNE, and PCA). And to make it do that, we have to follow these steps - 
+<ol>
+    <li>Make a <code>FileWriter Object</code>. It is responsible for writing data onto hard disks.</li>
+    <li>Use <code>tf.summary</code> module for recording different summaries.</li>
+    <li>Make a tensor of merged summaries, using <code>merge_all_summaries</code> method, and then evaluate using the session object at some intervals in training.</li>
+    <li>Write that summary to the filewrite object using <code>add_summary</code> method.</li>
+    <li>Write out the graph to the object using <code>add_graph</code> method.</li>
+</ol>
+
+<type2>Lets get started</type2><br>
+So with that, lets begin to try our hands on the tool. Since while writing, I am a newbie to tensorflow myself, I would start with simplest tensor computations
+ and then proceed to a proper neural network. Lets start with the following code, which has 2 layers, one of them calculates the mean and also multiplies the
+ input vector by 10, and nested layer calculates the sum of the product.
+<br>
+<type3>Code</type3>
+<script src="https://gist.github.com/phraniiac/337a791bb091154a8f6fc34990672120.js"></script>
+<type3>Results</type3><br>
+<div class="row">
+    <figure class="col-md-6 col-xs-6">
+        <img src="{{ site.baseurl }}{% link /assets/images/tensorboard/graph_1.png %}">
+        <figcaption>Generated graph</figcaption>
+    </figure>
+    <figure class="col-md-6 col-xs-6">
+        <img src="{{ site.baseurl }}{% link /assets/images/tensorboard/scalars_1.png %}">
+        <figcaption>Scalar summaries</figcaption>
+    </figure>
+</div>
+
+<type3>Some more Info</type3><br>
+With this I think we get a pretty nice idea of what's happening under the hood. We name the variables, we get the results. Now what are all the type of data that can
+be displayed or kept track of, should be our concern. I think it would be pretty interesting to see the mean of weights during a training of model, and we can do that
+just the way we did now. Below is a list of possible summaries that can be written - 
+<ol>
+    <li>Scalars - One valued constants.</li>
+    <li>Audio</li>
+    <li>Image</li>
+    <li>Histogram</li>
+</ol>
+
+<type2>One complete Example</type2><br>
+This would be the final example, an I would like to cover as many aspects of the module as possible. Also since I am closely following the Stanford cs224n course(2017
+version), the coding style and moreover the format is highly related to that. It might seem a bit fuzzy at once, but it is maintable code :). I would like to highlight
+some practices I think would be good to maintain for summaries and training models, like during epochs, record them, in cycle of 5 and others, still, leave feedbacks
+for improvements.
+

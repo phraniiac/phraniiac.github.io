@@ -1,0 +1,130 @@
+---
+layout: post
+title: "Glove - Word Vectors"
+date:   2017-03-01 00:51:32 +0530
+author: pranav
+categories: the_mathematics_behind
+permalink: the_mathematics_behind/glove/
+support_data: {
+      links: { "http://www-nlp.stanford.edu/pubs/glove.pdf": "Glove White Paper",
+                "http://web.stanford.edu/class/cs224n/lecture_notes/cs224n-2017-notes2.pdf/":"Stanford Notes",
+                "http://mathworld.wolfram.com/GroupHomomorphism.html":"Mathworld Wolfram",
+                "http://math.stackexchange.com/questions/2160914/defining-homomorphism-in-a-function":"Homomorphism Doubt"
+                },
+      tags: {"glove,", "word_vectors,", "nlp,", "homomorphism"},
+      categories: {"the_mathetics_behind"},
+      }
+---
+
+        		Word vectors are the basic building of NLP tasks for deep learning. Neural nets are trained using matrix calculations. And matrix consists of numbers. So to train the network we need to represent the words in our corpus into numerical row vectors so that we can feed them to our network for learning. Several methods have been tried for this problem, I would list them 
+            <ol>
+              <li>SVD Based Methods</li>
+                <ul>
+                  <li>Word Document Matrix</li>
+                  <li>Window based Co-occurence Matrix</li>
+                  <li>SVD on Co-occurence Matrix</li>
+                </ul>
+              <li>Neural Network Models</li>
+                <ul>
+                  <li>Word2Vec</li>
+                  <li>Glove</li>
+                </ul>
+            </ol>
+
+            In this post, we would learn more that how the authors of glove were able to formulate this method. Let's start with a besic idea, which is similar words should have similar vectors. For eg., if there's a sentence - 'the dog barked', and 'the canine barked', these sentences indicate to our mind that dog and canine are somewhat similar, as they are used in the similar <em>context</em>. And since our mind can learn that, so can a neural network. The thing important here is the neighbouring words (i.e. the context words) determine an identity of word. So we would use them in our model. What the authors did was they took co occurence counts of words in corpus, and the pairs having high counts meant that they are related.
+
+          <br>
+          <br>
+          <type2>Diving into Mathematics</type2>
+          <br>
+          <type3>Notations</type3>
+          <br>
+            Co-occurence Matrix : $X$<br>
+            Co-occurence count of word (i,j) : $X_{ij}$<br>
+          <type3>Derived Notations</type3>
+          <br>
+            Count/Frequency of word i : $\sum{}_{j}X_{ij}$ <br>
+            Probability of word j occuring with word i : $X_{ij}/X_{i}$<br>
+            Conditional Probability : $P(k|w) = P_{kw}/P_{w}$<br>
+          <br>
+            Let's consider i = dog, j = cat, k = bark. If we train our model, we would see that the ratio $P_{ik}/P_{jk}$ is much higher than 1. Similarily we can see the words as depicted in the diagram. The measure of probability ratios is indicating which words are more likely to occur. 
+
+            <figure>
+              <img src="../resources/glove_ex.png">
+              <figcaption>Probability ratios</figcaption>
+            </figure>
+            Now since our ratios are all the things we care about, the model can be formulated as - <br>
+            <equation>
+              <div>
+                $F(w_{i}, w_{j}, w^{'}_{k}) = \dfrac{P_{ik}}{P_{jk}}$
+              </div>
+            </equation>
+            Here the $w \in R^{d}$ vectors are word vectors, and $w' \in R^{d}$ vector is context vector of words. Now the authors argue that to reduce the number of arguments, the difference of the word vectors which is $w_{i} - w_{j}$ would make sense, instead of two different arguments. This was indeed true as we are already treating the counts and the probability measures relatively, so why not the arguments too, and when they can reduce the complexity too. What I like to think about this is that since the word vectors would be placed in a d-dimensional space, the difference between them would make total sense of how much they are related. So now the equation becomes - <br>
+
+            <equation>
+              <div>
+                $F(w_{i} - w_{j}, w_{k}^{'}) = \dfrac{P_{ik}}{P_{jk}}$
+              </div>
+            </equation>
+            Now we see that a function when applied on 2 arguments, both of them vectors, produce a scalar (ratio of probabilities). So what we could do is we can take the dot product to atleast isolate the dimensions of the arguments from being tampered by the function. Which gives us - 
+
+            <equation>
+              <div>
+                $F((w_{i} - w_{j})^{T}w^{'}_{k}) = \dfrac{P_{ik}}{P_{jk}}$
+              </div>
+            </equation>
+
+            As we know, the word k is context word for i, i would be for k too. Hence we need this function to be symmetric with $w_{i} \leftrightarrow w_{k}$ and since the co-occurence matrix is symmetric too, we also need $X \leftrightarrow X^{T}$. We can use group homomorphism to acheive this as we can make this function homomorphic in groups $(R, +)$ and $(R, x)$. Now what is group homomorphism? Well, in simplest terms, <strong>group homomorphism</strong>(<a href="http://mathworld.wolfram.com/GroupHomomorphism.html">read more</a>) is a mapping between two <string>groups</string>(read more about mathematical groups <a href="http://mathworld.wolfram.com/Group.html">here</a>). So the following equations justify why we used 'addition' and 'multiplication' as our two operators and since - 
+            <br>
+            <br>
+              $\begin{align}F((w_i^T-w_j^T)\cdot w_k') & =F(w_i^T\cdot w_k'-w_j^T\cdot w_k')=F(w_i^T\cdot w_k'+(-w_j^T\cdot w_k'))\\ & =F(w_i^T\cdot w_k')\times F(-w_j^T\cdot w_k') = F(w_i^T\cdot w_k')\times F(w_j^T\cdot w_k')^{-1}\\ & = \dfrac{F(w_{i}^{T}w_{k}^{'})}{F(w_{j}^{T}w_{k}^{'})},\end{align}$
+            <br>
+            <br>
+              From the property of group homomorphism that it preserves inverses, we know that + has an inverse as -, so x(multiplication) would have its equivalent inverse as / (division). For finding the solution of this equation, we need to equate the rhs with the original equations,
+              <br>
+              <equation>
+                <div>
+                $F(w_{i}^{T}w_{k}^{'}) = P_{ik} = \dfrac{X_{ik}}{X_{i}}$
+                </div>
+              </equation>
+              <br>
+              The solution to the above equations would be F = Exp. (Exponent function).
+
+              Hence, 
+              <br>
+              <equation>
+                <div>
+                  $w_{i}w_{k}^{'} = log(P_{ik}) = log(X_{ik}) - log(X_{i})$
+                </div>
+              </equation>
+              <br>
+              This equation would be symmetric if the term $X_{i}$ would be absent, or what we can do is add $X_{k}$ so that the symmetry can be acheived. Thus the equation becomes - 
+
+              <br>
+              <equation>
+                <div>
+                  $w_{i}^{T}w_{k}^{'} + b_{i} + b_{k}^{'} = log(X_{ik})$
+                </div>
+              </equation>
+              <br>
+              The above equation can be used for our loss function to train the word, and context vectors. We define the loss function as - 
+
+              <br>
+                <equation>
+                  <div>
+                    $J = \sum{}_{i,j=1}^{|V|} f(X_{ij}).(w_{i}^{T}w_{j}^{'} + b_{i} + b_{j}^{'} - log(X_{ij}))^{2}$
+                  </div>
+                </equation>
+              <br>
+
+                The function f is weight function which can be understood more in the paper itself. Basically it is a parameter that although tackles small cooccurences by not making them over-weighted, and also for the large values to prevent them from overweigting too.
+
+              <br>
+                <equation>
+                  <div>
+                    $f(x) = (x/x_{max})^{\alpha} if x < x_{max}, 1 otherwise$
+                  </div>
+                </equation>
+              <br>
+
+                This was about all of the mathematics that drives glove word vectors. There is a normal loss function which can be easily optimized by building neural net using tensorflow. Will add a post on my python implementation of Glove using TensorFlow too. Although the code can be viewed on Github.

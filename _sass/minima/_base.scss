@@ -55,6 +55,7 @@ figure > img {
 
 figcaption {
   font-size: $small-font-size;
+  text-align: center;
 }
 
 
@@ -64,6 +65,10 @@ figcaption {
  */
 ul, ol {
   margin-left: $spacing-unit;
+}
+
+ul {
+  list-style: none;
 }
 
 li {

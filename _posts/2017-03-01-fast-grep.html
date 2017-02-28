@@ -1,0 +1,26 @@
+---
+layout: post
+title: fast_grep
+date:   2017-03-01 00:51:32 +0530
+author: pranav
+categories: backend
+permalink: backend/fast_grep/
+support_data: {
+      links: { "https://github.com/phraniiac/fast_grep": "Github Repo",
+                "https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm":"KMP Algorithm"
+                },
+      tags: {"algorithms", "competitive coding"},
+      categories: {"backend"},
+      }
+
+---
+<strong>** I will also write a post in TMB regarding the algorithm. **</strong><br>
+KMP algorithm is one of the famous algorithms for pattern matching. And I had to find a lot of resources to find what all was happening
+in the algorithm, and when I finally understood it, I had to give a try to the implementation of the algo. Since KMP works in a DFA fashion, it was easy to integrate it into system which reads a large file in a window, character by character updating it (saves a lot of memory), and thscans the window to change states of the DFA array of KMP. Hence it performs well and produces faster results than native grep in a specific case of displaying before and after characters of the pattern.
+<br>
+<br>
+<type2>Working</type2>
+<br>
+The following code is the computation function of KMP, which populated the kmp array.
+<script src="https://gist.github.com/phraniiac/3e9d458c531622904ed6c9840ff2191d.js"></script>
+Head over to the repository for more details.
