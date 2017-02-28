@@ -1,0 +1,72 @@
+---
+layout: post
+title:  "Deduplication File System"
+date:   2017-02-28 11:08:32 +0530
+author: pranav
+categories: backend
+permalink: backend/dedup/
+support_data: {
+      links: { "https://github.com/phraniiac/online_fs": "Github Repo", 
+                "https://blogs.dropbox.com/tech/2012/10/caching-in-theory-and-practice/": "Dropbox - Caching Mechanism"},
+      tags: {"deduplication,", "optimization,", "file systems"},
+      categories: {"backend"},
+
+      }
+---
+
+        After a long time of learning (and still going on) Machine learning, I wanted to code. Well, that was easy but I also wanted to make something challenging, and good, at least in my own terms (cause I don’t know what I will write further will make sense to experienced developers and cloud architects). While writing this part of the blog, this is my first day on this project and I am still researching ways to properly make this work. So let me tell you what I am trying to do. I had read somewhere that cloud storage platforms like Google drive, Dropbox, and others maintain a file system that prevents duplication of data. So, what I am planning to do is implement a small scaled platform to store files which would do the same things. Of course not all the things, and not that much efficiently, but I want to learn as much optimizations I can, like storing a file system metadata serialized tree in a text file, maintaining a block pool, deduplicating, and also I am searching for a way to align files so that more and more overlapping partitioning blocks can be made.
+		    <br>
+        <br>
+          <type2>System Plan</type2>
+        <br>
+        A user signs up for the platform, which then makes a new directory for that user. The metadata of user, profile details, are stored in MongoDb. The user then can create new folders, upload files. There is no limit for space. The files are broken into chunks of fixed size, specified in application, and those chunks are stored in a pool, where each chunk has a unique id. The metadata of file, i.e. the list of hash of chunks it is broken into, the sequence of chunks, are all stored in MongoDb.
+        <figure>
+          <img src="../resources/im_1.jpeg">
+          <figcaption>Flowchat 1</figcaption>
+        </figure>
+        <figure>
+          <img src="../resources/im_2.jpeg">
+          <figcaption>Flowchat 2</figcaption>
+        </figure>
+        <figure>
+          <img src="../resources/im_3.jpeg">
+          <figcaption>Flowchat 3</figcaption>
+        </figure>
+
+        <br>
+        <type2>Update — 28th Jan</type2>
+        <br>
+        I have the following checklist to complete the project. I didn’t had the idea that it would grow to this extent, but still, I would like to continue when get the time from my current courses(it seems not soon enough). This update is to remind me where I left this project, and the code is present here. Till now, the uploading part is complete, without the sequencing part. Also the user can see/create/delete folders/files in their directories. The directories are stored in a serialized manner described below.
+        <br>
+        <br>
+        <ol>
+          <li>Block breaking.</li>
+          <li>Caching files. (LRU algorithm)</li>
+          <li>Serialize/Deserialize directory tree.</li>
+          <li>Fast directory search/insertion/deletion from tree.</li>
+          <li>Optimized search.</li>
+        </ol>
+        Though except 1, all the tasks can be completed using available projects in market like Solr for searching, Memcached for caching, I wanted to implement the algorithms by hand to complete this. What I have planned is to make this application using rest services. Now, I would explain in detail what I mean by the tasks above.
+        <br>
+        <br>
+        <br>
+        I would store the files uploaded to the server by breaking the files into chunks, then checking whether the chunks are already present in my storage pool of file chunks. This would prevent duplication of data on the server. Also I researched and got a <a href="https://www.google.com/patents/US8364652">white paper</a> which specifies to take this a step further and also consider alignment between file so that a file (which is modified in the middle) could also get the chunk matched which would be after the modified part.
+        <br>
+        <br>
+        <type2>Caching files</type2>
+        <br>
+        If the user downloads/uploads a file, it stays in the cache for some time. After upload the file hash is stored in a global queue, and the file is in cache for fast access, by the user. Also when a user request to download, before actually downloading, the file chunks are appended to make the original file again, and the file is copied to cache space. This also ensures for fast access for repeated trials. I researched for different algorithmic benchmarks, and found that DropBox has implemented LRU (Least recently used) algorithm( implemented by an intern :)), and posted his update on Tech blog of DropBox.
+        <br>
+        <br>
+        <type2>Serializing/Deserializing directory Tree</type2>
+        <br>
+        A directory is stored in n-ary tree with user at its root. This tree is not always in memory(RAM). It is written into file, and read only when user is online, and deleted when user goes offline. To write the directory into files, serialization was required, and I have implemented that in the code. Similarly the deserialization part is for reading the tree into memory.
+        <br>
+        <br>
+        <type2>Fast Directory Lookup from Tree</type2>
+        <br>
+        This is the most difficult part for me. Either I will have to research for a new data structure for this, or will have to find an efficient algorithm to get directory faster. This optimization would facilitate and make efficient file/folder sharing, accessing deep structured files, and fast searching too.
+
+        <br>
+        <br>
+        This is the plan yet for me. The serialization, block breaking and dedup parts are implemented too. What remains is lookups and caching. I have used flask, python for simple web interface. If you have better ideas or want to contribute, ping me or send a pr.

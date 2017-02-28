@@ -1,0 +1,50 @@
+
+
+/**
+ * Page content
+ */
+.page-content {
+  padding: $spacing-unit 0;
+}
+
+.page-heading {
+  font-size: 20px;
+}
+
+.post-list {
+  margin-left: 0;
+  list-style: none;
+
+  > li {
+    margin-bottom: $spacing-unit;
+  }
+}
+
+.post-meta {
+  font-size: $small-font-size;
+  color: $grey-color;
+}
+
+.post-link {
+  display: block;
+  font-size: 24px;
+}
+
+.post_content {
+  font-family: $post-font-family;
+}
+
+.post_content type2 {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.post_content type3 {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.post_content, ol {
+	 font-family: $post-font-family;
+	 font-size: 16px;
+}

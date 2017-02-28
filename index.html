@@ -1,0 +1,89 @@
+---
+# You don't need to edit this file, it's empty on purpose.
+# Edit theme's home layout instead if you wanna make some changes
+# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+layout: default
+---
+
+<div id="header_website" style="font-size: 100%; text-align: center; margin-top: 15px;">
+		 $ ``It's \hspace{2mm} all \hspace{2mm}  about \hspace{2mm}  the \hspace{2mm}  mathematics \hspace{2mm} behind." $
+	</div>
+	<div class="row" style="margin-top:20px;">
+		<div class="col-lg-3 col-xl-3">
+			
+			<div class="text-left">
+				{% for image in site.static_files %}
+  					{% if image.path contains 'assets/images/main_img.jpg' %}
+  						<img src="{{ image.path }}" class="rounded" alt="..." width="200" height="200">
+  					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-lg-6 col-xl-6">
+			Hi, I'm Pranav :D. Here you can find my projects, and the code related to them. During my initial coding years, I learned 
+			backend, competitive coding and some mathematics, and now I have diverted more towards Machine Learning, Deep Learning, and Deeper Mathematics. The list below	would show various my projects/assignments/stuff.
+			<br>
+			<br>
+			With MathJax, I am starting to migrate my diary contents to a series of blog posts, <strong>The Mathematics Behind</strong>. I try to
+			figure out what leads to the derived equations that I study mostly in deep learning, but I do include areas from statistics, and physics(during my school years). So check that out <a href="/the_mathematics_behind">here</a>.
+		</div>
+		<div class="col-lg-3 col-xl-3">
+		<div class="card">
+			<div class="card-block">
+				
+			<div class="col">
+		<h4>Status (24 Feb 2017)</h4>
+			<h5>Working On</h5>
+				<ol>
+					<li><a href="">NER using Deep learning.</a></li>
+				</ol>
+			<h5>Courses</h5>
+			<ol>
+				<li><a target="_blank" href="https://www.coursera.org/learn/neural-networks/home">ANN by Hinton</a></li>
+				<li><a target="_blank" href="https://www.coursera.org/learn/game-theory-1/home/welcome">Game Theory</a></li>
+				<li><a target="_blank" href="web.stanford.edu/class/cs224n/">Stanford NLP using Deep Learning</a></li>
+			</ol>
+			<h5>Reading</h5>
+				<ol>
+					<li><a target="_blank" href="http://www.amazon.in/Pattern-Recognition-Learning-Information-Statistics/dp/0387310738">PRML</a></li>
+				</ol>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="row" style="margin-top: 20px">
+		<div class="container">
+		<div class="col">
+		<h2>Projects</h2>
+			<h4>Backend and Algorithms</h4>
+			<ol>
+				<li><a href="https://allura.apache.org/">Apache Allura (Open Source)</a></li>
+				<li><a href="/backend/coursearcher">Coursearcher</a></li>
+				<li><a href="/backend/dedup.html">Deduplicating File System (A big One :D)</a></li>
+				<li><a href="/backend/fast_grep.html">Fast_Grep - Sliding window with KMP Algo</a></li>
+				<a href="/backend/">check out more..</a>
+			</ol>
+			<h4>Machine Learning</h4>
+			<ol>
+				<li>Assignments - CS224N Deep learning using NLP</li>
+				<li>UFLDL - Unsupervised feature learning using Deep Learning</li>
+				<a href="/machine_learning">check out more..</a>
+			</ol>
+			<h4>Papers I Read</h4>
+			<ol>
+				<li><a href="download.tensorflow.org/paper/whitepaper2015.pdf">Tensorflow White Paper</a></li>
+				<li><a href="www-nlp.stanford.edu/pubs/glove.pdf">Glove Word vectors</a></li>
+				<a href="/research">check out more..</a>
+			</ol>
+			<h4>Courses and Assignments and Self implemented Python Algorithms</h4>
+			<ol>
+				<li>Udacity Deep Learning, By Google</li>
+				<li>Game theory, Stanford</li>
+				<li>ANN by Hinton, Coursera</li>
+				<li>Exploratory Data Analysis (Coursera)</li>
+			</ol>
+		</div>
+		</div>
+	</div>

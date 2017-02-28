@@ -1,0 +1,69 @@
+---
+layout: default
+---
+
+<div class="row">
+    <div name="post" style="margin-top: 20px;"  class="col-md-8">
+      
+      <div class="post_header">
+				<div name="post_name">
+					<h1>{{page.title | escape}}</h1>
+				</div>
+        <div>
+          <em>Updated on <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
+          {% if page.author %} • 
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span itemprop="name">by - {{ page.author }}</span>
+            </span>
+          {% endif %}</em>
+        </div>
+        <div class="categories">
+        <p>
+          <em>
+            categories - 
+            {% for category in page.support_data.categories %}
+                {{category}}
+            {% endfor %}
+          </em>
+        </p>
+        </div>
+        <div class="tags">
+        <p>
+          <em>
+            tags - 
+            {% for tag in page.support_data.tags %}
+                {{tag}}
+            {% endfor %}
+          </em>
+        </p>
+        </div>
+      </div>
+        <br>
+        <span class="post_content">
+          {{content}}
+        </span>
+    </div>
+      
+      <div name="links" class="col-md-4" style="margin-top: 20px; border: 2px;">
+        <div class="card">
+          <div class="card-block">
+            <h4>Links</h4>
+            <ol>
+            {% for links in page.support_data.links %}
+              <li>
+                <a target="_blank" href="{{links[0]}}">{{links[1]}}</a>
+              </li>
+            {% endfor %}
+            </ol>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div id="disqus_thread" class="col-md-8"></div>
+
+  {% if site.environment == 'production' %}
+    {% include disqus_comments.html %}
+  {% endif %}
+
+</div>
