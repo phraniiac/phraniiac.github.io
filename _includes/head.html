@@ -30,8 +30,8 @@
     <meta property="og:url"                content="{{page.url}}" />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="{{page.title | escape}}" />
-    <meta property="og:description"        content="How much does culture influence creative thinking?" />
-    <meta property="og:image"              content="" />
+    <meta property="og:description"        content="{{page.share_content}}" />
+    <meta property="og:image"              content="{{page.image_sharing}}" />
 
   {% if site.environment == 'production' and site.google_analytics %}
   {% include google-analytics.html %}
