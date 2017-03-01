@@ -7,12 +7,12 @@ dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0;
 }
-
+/*
 html {
     zoom: $base-zoom-property;
     -moz-transform: scale(0.75);
 }
-
+*/
 /**
  * Basic styling
  */
@@ -41,7 +41,8 @@ ul, ol, dl, figure,
  * Images
  */
 img {
-  max-width: 100%;
+  max-width: 300px;
+  margin: auto;
   vertical-align: middle;
 }
 

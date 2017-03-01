@@ -1,0 +1,41 @@
+<!-- facebook -->
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+        <div class="fb-like" data-href="{{site.url}}{{page.url}}" data-layout="standard" data-action="like" data-show-faces="true"></div>
+        </div>
+        <br>
+        
+        <div class="row">
+        <div class="fb-share-button" data-href="{{site.url}}{{page.url}}" data-layout="button_count" data-size="small"></div>
+        </div>
+        <br>
+        
+        <div class="row">
+        <div>
+        <a class="twitter-share-button" style="display: block; margin: auto"
+          href="https://twitter.com/intent/tweet?text={{page.twitter_share | escape}}"
+          data-size="small">
+        Tweet</a>
+        </div>
+        </div>
+        <br>
+        
+        
+        <div class="row">
+        <script type="IN/Share" data-url="{{site.url}}{{page.url}}" data-counter="right"></script>
+        </div>
+        <br>
+        
+        <div class="row">
+        <g:plusone></g:plusone>
+        </div>
+        <br>
+        
+        <div class="row">
+        <!-- Place this tag where you want the share button to render. -->
+        <div class="g-plus" data-action="share" data-href="{{site.url}}{{page.url}}"></div>
+        </div>
+
+    </div>
+</div>

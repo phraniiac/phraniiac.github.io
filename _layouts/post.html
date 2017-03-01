@@ -37,29 +37,41 @@ layout: default
           </em>
         </p>
         </div>
-        <!-- Your share button code -->
-        <div class="fb-share-button" data-href="{{site.url}}{{page.url}}" data-layout="button_count" data-size="large"></div>
       </div>
         <br>
         <span class="post_content">
           {{content}}
         </span>
     </div>
-      
+
       <div name="links" class="col-md-4" style="margin-top: 20px; border: 2px;">
-        <div class="card">
-          <div class="card-block">
-            <h4>Links</h4>
-            <ol>
-            {% for links in page.support_data.links %}
-              <li>
-                <a target="_blank" href="{{links[0]}}">{{links[1]}}</a>
-              </li>
-            {% endfor %}
-            </ol>
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <div class="card">
+              <div class="card-block">
+                <h4>Links</h4>
+                <ol>
+                {% for links in page.support_data.links %}
+                  <li>
+                    <a target="_blank" href="{{links[0]}}">{{links[1]}}</a>
+                  </li>
+                {% endfor %}
+                </ol>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="col-md-12 col-xs-12">
+            <!-- My share button code -->
+            <div class="social_buttons">
+              {% include social_sharing.html %}
+            </div>
           </div>
         </div>
-      </div>
+    </div>
+
+      
       
     </div>
     <div id="disqus_thread" class="col-md-8"></div>

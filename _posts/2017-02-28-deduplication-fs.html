@@ -5,6 +5,7 @@ date:   2017-02-28 11:08:32 +0530
 author: pranav
 categories: backend
 permalink: backend/dedup/
+twitter_share: Small scale Deduplication file system.
 support_data: {
       links: { "https://github.com/phraniiac/online_fs": "Github Repo", 
                 "https://blogs.dropbox.com/tech/2012/10/caching-in-theory-and-practice/": "Dropbox - Caching Mechanism"},
@@ -20,15 +21,15 @@ support_data: {
         <br>
         A user signs up for the platform, which then makes a new directory for that user. The metadata of user, profile details, are stored in MongoDb. The user then can create new folders, upload files. There is no limit for space. The files are broken into chunks of fixed size, specified in application, and those chunks are stored in a pool, where each chunk has a unique id. The metadata of file, i.e. the list of hash of chunks it is broken into, the sequence of chunks, are all stored in MongoDb.
         <figure>
-          <img src="../resources/im_1.jpeg">
+          <img src="{{site.url}}/assets/images/dedup/im_1.jpeg">
           <figcaption>Flowchat 1</figcaption>
         </figure>
         <figure>
-          <img src="../resources/im_2.jpeg">
+          <img src="{{site.url}}/assets/images/dedup/im_2.jpeg">
           <figcaption>Flowchat 2</figcaption>
         </figure>
         <figure>
-          <img src="../resources/im_3.jpeg">
+          <img src="{{site.url}}/assets/images/dedup/im_3.jpeg">
           <figcaption>Flowchat 3</figcaption>
         </figure>
 
