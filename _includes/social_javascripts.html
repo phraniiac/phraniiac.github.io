@@ -1,5 +1,11 @@
 <!-- facebook app sdk -->
 <script>
+
+   var page_like = function(url, html_element) {
+      ga('send', 'social', 'facebook', 'like', url);
+      console.log('Thanks for Liking!! :)')
+    }
+
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '119100858616614',
@@ -7,6 +13,7 @@
       version    : 'v2.8'
     });
     FB.AppEvents.logPageView();
+    FB.Event.subscribe('edge.create', page_like);
   };
 
   (function(d, s, id){
@@ -16,6 +23,8 @@
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+
+
 </script>
 
 <!-- twitter -->
@@ -43,11 +52,5 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 <script>
-  var page_like_or_unlike_callback = function(url, html_element) {
-    ga('send', 'social', 'facebook', 'like', url);
-    console.log('Thanks for Liking!! :)')
-  }
 
-
-  FB.Event.subscribe('edge.create', page_like);
 </script>
