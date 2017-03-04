@@ -1,11 +1,12 @@
 ---
 layout: post
+date:   2017-03-04 11:50:32 +0530
 title: TensorBoard - Our Batman for DNNs
 author: pranav
 permalink: /machine_learning/tensorboard/
 categories: machine_learning
 share_content: Check out about TensorBoard.
-image_sharing: 
+image_sharing: http://prsharma.me/assets/images/adversarial_crypto/loss_total.png
 support_data: {
       links: { "https://www.youtube.com/watch?v=eBbEDRsCmv4": "Youtube Video", 
                 "https://www.tensorflow.org/get_started/graph_viz": "TensorFlow Graph Visuals"},
@@ -71,3 +72,21 @@ version), the coding style and moreover the format is highly related to that. It
 some practices I think would be good to maintain for summaries and training models, like during epochs, record them, in cycle of 5 and others, still, leave feedbacks
 for improvements.
 
+Check the code in this blog post (<a href='{{site.url}}/machine_learning/crypto_dnn/'>here</a>). As this code is part of my semester project for Cryptography N/W security me :). It is explained
+there in different context, but you can also see the summary recording that I did for each variable.
+
+Here are some practices that I would generally use - 
+<br>
+<ol>
+    <li> For most type of summaries, adding <a href="https://gist.github.com/phraniiac/5bbd787866a631d9b113175333df379a">this (gist)</a> code would be good. 
+    Any type of tensor would have these details in them.</li>
+    <li> Nest the layers into name scopes as much as you can. This would organize the visualized graph and would also help
+            you combine multiple summaries using regex feature.</li>
+    <li> For the batch you are writing summary, it would be good to use a validation set as your feed_dict into session object.
+        What I would like to do is switch between them on the ratio of dataset size of both. </li>
+    <li> What a cool thing that I liked was the dev summit demonstration of Hyperparameter optimization during multiple runs.
+        Check out the video in the links section,  it's really awesome </li>
+    <li> Will add more as I come through..</li>
+</ol>    
+
+<br>
