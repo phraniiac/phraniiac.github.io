@@ -1,12 +1,22 @@
-<!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+<!-- facebook app sdk -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '119100858616614',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <!-- twitter -->
 <script>window.twttr = (function(d, s, id) {
@@ -31,3 +41,13 @@
 
 <!-- Google Plus -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+  var page_like_or_unlike_callback = function(url, html_element) {
+    ga('send', 'social', 'facebook', 'like', url);
+    console.log('Thanks for Liking!! :)')
+  }
+
+
+  FB.Event.subscribe('edge.create', page_like);
+</script>
