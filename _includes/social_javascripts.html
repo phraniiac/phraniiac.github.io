@@ -1,28 +1,31 @@
 <!-- facebook app sdk -->
+<div id="fb-root"></div>
 <script>
 
-   var page_like = function(url, html_element) {
-      ga('send', 'social', 'facebook', 'like', url);
-      console.log('Thanks for Liking!! :)')
-    }
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=119100858616614";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk')); 
 
-  window.fbAsyncInit = function() {
+ window.fbAsyncInit = function() {
     FB.init({
       appId      : '119100858616614',
       xfbml      : true,
       version    : 'v2.8'
     });
     FB.AppEvents.logPageView();
-    FB.Event.subscribe('edge.create', page_like);
-  };
+    FB.Event.subscribe('edge.create', function(url, html_element) {
+      ga('send', 'social', 'facebook', 'like', url);
+      console.log('Thanks for Liking!! :)')
+    });
+    FB.Event.subscribe('edge.remove',function(URL) {
+      ga('send', 'social', 'Facebook', 'unlike', URL);
+    }); 
+};
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
 
 
 </script>
