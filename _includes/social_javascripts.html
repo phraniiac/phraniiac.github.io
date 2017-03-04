@@ -18,7 +18,7 @@
     });
     FB.AppEvents.logPageView();
     FB.Event.subscribe('edge.create', function(url, html_element) {
-      ga('send', 'social', 'facebook', 'like', url);
+      ga('send', 'social', 'Facebook', 'like', url);
       console.log('Thanks for Liking!! :)')
     });
     FB.Event.subscribe('edge.remove',function(URL) {
