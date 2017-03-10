@@ -22,7 +22,10 @@ Team, the link is in description, which had some proofs that a network can learn
 decided to implement model they presented. This would make a good networking project and I would also produce visualizations from
 TensorBoard, that I needed for <a href="{{site.baseurl}}/machine_learning/tensorboard/">this blog post</a>.
 
+<br>
+<br>
 <type2>TLDR (for research paper)</type2>
+<br>
 The famous old example for Alice, Bob, and Eve is used in the discussion. Check the model - 
 
 <figure>
@@ -30,9 +33,29 @@ The famous old example for Alice, Bob, and Eve is used in the discussion. Check 
     <figcaption> Alice, Bob, and Eve, with a symmetric cryptosystem.</figcaption>
 </figure>
 
-There are convnets, and fully-connected layers implemented for all three, but the basic difference is of the key.
+There are convnets, and fully-connected layers implemented for all three, but the basic difference is of the key. It can be viewed
+as a generative adversarial neural network (according to <a href="https://en.wikipedia.org/wiki/Generative_adversarial_networks">wikipedia</a>,
+these are the ones, that train while competing), having two optimizers, which oppose each other, but with single network. As all other parameters
+are the same for the optimizers, the difference lies in the network itself, which is the key is not provided with the input at the Eve node. The 
+optimizer which has the key outperforms the one without, and hence results in large error bits on the Eve node.
 
+<br>
+<br>
 <type2>Results</type2>
+<br>
 Well, I didn't go onto the scale the paper suggests (limitation of resources), but the visualizations here are pretty promising that
-the network is learning. 
+the network is learning. Below are the error bit rates. I believe if trained long enough, the model would approach 0 bits for bob, and
+almost 8 bits for eve as said in the paper, although here too, the relation can be seen distinctively, with 2 and 11 bits respectively.
 
+The visualizations are created using TensorBoard, as told in this <a href="{{site.baseurl}}/machine_learning/tensorboard">post</a>.
+<br>
+<br>
+<figure>
+    <img class="detail_img" src="{{ site.baseurl }}{% link /assets/images/adversarial_crypto/bits_bob.png%}" />
+    <figcaption>Wrong bits that Bob predicted. Almost 2 bits.</figcaption>
+</figure>
+
+<figure>
+    <img class="detail_img" src="{{ site.baseurl }}{% link /assets/images/adversarial_crypto/bits_eve.png%}" />
+    <figcaption>Wrong bits that Eve predicted. Almost 11 bits.</figcaption>
+</figure>
