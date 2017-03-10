@@ -1,0 +1,38 @@
+---
+layout: post
+date:   2017-03-04 11:50:32 +0530
+title: Modelling Adversarial Communication using DNNs
+author: pranav
+permalink: /machine_learning/crypto_dnn/
+categories: machine_learning
+share_content: Modelling Adversarial Communication using DNN, network that self learns encryption process.
+image_sharing: https://camo.githubusercontent.com/5610aa0fe10ed3ba44fbce582d199d2f8e23de4d/687474703a2f2f7072736861726d612e6d652f6173736574732f696d616765732f616476657273617269616c5f63727970746f2f6576655f6c6f73732e706e67
+support_data: {
+      links: { "http://arxiv.org/pdf/1610.06918.pdf": "Google Brain Paper", 
+                "https://github.com/phraniiac/adversarial_cryptography_using_tensorflow": "Github Repo"},
+      tags: {"cryptography,", "deep neural networks", "tensorflow"},
+      categories: {"machine_learning"},
+      }
+---
+
+This midsems, my Cryptosystem teacher advised to either take exams seriously or to make a project. Well, the exams never bothered
+me anyway :p (and because of that I don't score good in them), but I really thought of making something for project that would 
+also help me improve my understanding of deep neural nets. So after researching, I found a good paper published by Google Brain 
+Team, the link is in description, which had some proofs that a network can learn to protect information from adversaries. So I 
+decided to implement model they presented. This would make a good networking project and I would also produce visualizations from
+TensorBoard, that I needed for <a href="{{site.baseurl}}/machine_learning/tensorboard/">this blog post</a>.
+
+<type2>TLDR (for research paper)</type2>
+The famous old example for Alice, Bob, and Eve is used in the discussion. Check the model - 
+
+<figure>
+    <img src="{{ site.baseurl }}{% link /assets/images/adversarial_crypto/crypto_model_1.png %}" />
+    <figcaption> Alice, Bob, and Eve, with a symmetric cryptosystem.</figcaption>
+</figure>
+
+There are convnets, and fully-connected layers implemented for all three, but the basic difference is of the key.
+
+<type2>Results</type2>
+Well, I didn't go onto the scale the paper suggests (limitation of resources), but the visualizations here are pretty promising that
+the network is learning. 
+
