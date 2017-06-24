@@ -1,0 +1,13 @@
+---
+layout: page
+title: "Devops posts"
+permalink: devops/
+---
+
+<ul>
+{% for post in site.categories.devops %}
+
+   <a href="{{post.url}}"><li><h5>{{post.title | escape}}</h5></li></a>
+
+{% endfor %}
+</ul>
