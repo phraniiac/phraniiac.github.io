@@ -1,0 +1,84 @@
+---
+layout: post
+date:   2017-07-22 11:50:32 +0530
+title: Python and Cassandra for analytics
+author: pranav
+permalink: /machine_learning/cassandra_python/
+categories: machine_learning
+share_content: Getting on with Python, and Cassandra for basic data analysis.
+support_data: {
+      links: { "https://pandaforme.gitbooks.io/introduction-to-cassandra/": "Gitbook Cassandra", 
+                "https://jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/": "Python generators"},
+      tags: {"machine learning,", "python", "cassandra"},
+      categories: {"machine_learning"}
+      }
+---
+
+Most recently I was working with analytics, and hence I decided to write what I learnt from my experience. Though it took
+more time than it should have, I learnt many new things too. Let me start with Python. I will keep this post short and concise,
+but will give the links to learn more.
+<br>
+<br>
+<h3>Python Generators and Iterators</h3>
+In python, I always wanted to use generators myself. For me it was a big aim :D, cause I never got the chance to work on this much big amount of data.
+So, the data was to be taken from database, and then pushed to cassandra for displaying analytics (which it is famous for).
+To write data, I had to perform batch insert operations but with a batch size. So, I iterated over the records with an iterator
+and the structure of the code was as follows - 
+
+
+<br>
+<script src="https://gist.github.com/phraniiac/3743d615174fe301c6df2d4f56884e32.js"></script>
+<br>
+Yeah, I know thats not too cool, and maybe pretty naive, but it would help me actually improve memory performance of the insertion 
+script. One thing that was new to realize with this code was, when I tried it with the following code, only one of the table had
+the data and the other ones were empty. This made me realize that the function which is iterating over the elements of the batch 
+should be called for ech table because once a yielded object is iterated, it goes out of memory. So I chaned the structure of the
+code and called the function for all the tables. The number of queries remained the same, the memory load at a time was same too.
+If you think I could have done it in a better way, comment below and we would discuss.
+<br>
+<br>
+<h3>Cassandra</h3>
+Moving on to the next part, which is cassandra. Cassandra is a columnar database which is highly write efficient. And while
+learning about cassandra I came across many concepts, like the hierarchial primary keys, CAP theorem, redundant data storage.
+<br>
+<br>
+First of all, it is a good practice to store redundant data to cassandra, because it is really good at writing data in database.
+Write everything that you would need to get instantly for usage.Also consider the following image, and start thinking in columnar
+ways because that will help in designing the structure of tables and also decide the primary keys.
+<br>
+<br>
+First lets discuss the different type of keys in cassandra.
+<ol>
+      <li>
+            <b>Partition Key</b> - They decide on which node the record will be stored.
+      </li>
+      <li>
+            <b>Clustering Key</b> - They decide the ordering of the records to be stored in a particular node, based on the columns that 
+            are included.
+      </li>
+</ol>
+
+So, from all that I learnt(yet), I think I can summarize the workflow of a developer using cassandra for basic dashboard analytics
+as follows - 
+
+<ol>
+      <li>
+            Preprocess all the analytics you want to show. Use pandas/spark anything.
+      </li>
+      <li>
+            Model the queries you want to run in cassandra.
+      </li>
+      <li>
+            Group the queries with most column name which are present in the where clause. Those queries can be run on a single table
+            by making that column name as partition key(the first level key). 
+      </li>
+      <li>
+            Insert the data, and perform the queries. It is recommeded to use the partition key as more as you can in selecting queries.
+      </li>
+</ol>
+
+This is the gitbook I found most useful for learning cassandra. Check it for more details. The link for all other sources are in the sidebar.
+The last thing about cassandra is this <a href="https://stackoverflow.com/a/34287675" target="blank">stackoverflow answer</a>. This is really peculiar/interesting as it helps to gain insight of how cassandra
+is working.
+<br>
+<br>

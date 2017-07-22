@@ -1,8 +1,9 @@
 ---
 layout: post
 title: Containers - Concepts and Implementation.
-permalink: /devops/containers
+permalink: /devops/containers/
 author: pranav
+categories: devops
 support_data: {
       links: { "https://en.wikipedia.org/wiki/Virtualization": "Virtualization Wiki",
                "https://docs.docker.com/":"Docker Official Docs",
